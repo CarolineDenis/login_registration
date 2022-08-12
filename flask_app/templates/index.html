@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register page</title>
+</head>
+<body>
+<div class="registration">
+    <h2>Register</h2>
+
+
+    <form action="/create" method="POST" style="width: 180px;">
+        <label for="first_name">First Name:</label>
+        {% for message in get_flashed_messages(category_filter=['err_first_name']) %}
+            <p>{{ message }}</p>
+        {% endfor %}
+        <input type="text" name="first_name">
+        <label for="last_name">Last Name:</label>
+        {% for message in get_flashed_messages(category_filter=['err_last_name']) %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <input type="text" name="last_name">
+        <label for="email">Email:</label>
+        {% for message in get_flashed_messages(category_filter=['err_email']) %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <input type="text" name="email">
+        <label for="password">Password:</label>
+        {% for message in get_flashed_messages(category_filter=['err_password']) %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <input type="text" name="password">
+        <label for="confirm_password">Confirm Password:</label>
+        {% for message in get_flashed_messages(category_filter=['err_confirm_password']) %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <input type="text" name="confirm_password">
+        <button>Register</button>
+    </form>
+</div>
+
+<div class="Login">
+    <h2>Login</h2>
+    <form action="/login" method="POST" style="width: 200px;">
+        {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <label for="email">Email :</label>
+        <input type="text" name="email">
+        <label for="password">Password:</label>
+        <input type="text" name="password">
+        <button>Login</button>
+    </form>
+</div>
+
+</body>
+
+</html>
