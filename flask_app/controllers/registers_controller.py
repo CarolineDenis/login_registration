@@ -7,9 +7,10 @@ bcrypt = Bcrypt(app)
 
 @app.route('/')
 def index():
-    print(session)
-    user = Account.get_all()
-    return render_template("index.html", user=user)
+    if "email" in session:
+    # can have access to dashboard by URL if still email in session 
+        return redirect('/dashboard')
+    return render_template("index.html")
 
 @app.route('/create', methods=['POST'])
 def create():
@@ -33,19 +34,20 @@ def log_in():
     }
     user_in_db = Account.get_by_email(data)
     if not user_in_db:
-        flash("Invalid Password/Email")
+        flash("Invalid Credential", "err_log")
         return redirect('/')
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
-            flash("Invalid Password")
+            flash("Invalid Credential", "err_log")
             return redirect('/')
     if user_in_db:
         session['email'] = user_in_db.email
         return redirect('/dashboard')
-    return redirect('/')
 
 @app.route('/dashboard')
 def dashboard():
-    print(session)
+# this is to not have access to the dash board when session is empty with URL
+    if not "email" in session:
+        return redirect('/')
     data = {
         'email': session['email'],
     }

@@ -45,7 +45,7 @@
 <div class="Login">
     <h2>Login</h2>
     <form action="/login" method="POST" style="width: 200px;">
-        {% for message in get_flashed_messages() %}
+        {% for message in get_flashed_messages(category_filter=['err_log']) %}
         <p>{{ message }}</p>
         {% endfor %}
         <label for="email">Email :</label>
